@@ -1,9 +1,7 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://zzinlee.dev/sitemap-index.xml
+Sitemap: https://zzinlee.dev/sitemap.xml
 
 User-agent: Googlebot-Image
 Allow: /assets/
-
-Crawl-delay: 10

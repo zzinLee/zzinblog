@@ -23,6 +23,10 @@ pnpm build        # 프로덕션 빌드
 pnpm preview      # 빌드 결과 미리보기
 pnpm format       # Prettier 포맷팅
 pnpm format:check # 포맷팅 검사
+pnpm lint         # ESLint 린트 검사
+pnpm lint:fix     # ESLint 자동 수정
+pnpm check        # ESLint + Prettier 검사
+pnpm fix          # ESLint + Prettier 수정
 ```
 
 ## Directory Structure
@@ -49,6 +53,12 @@ public/           # 정적 파일 (favicon, og-image, robots.txt)
 - **따옴표**: Double quote (`"`)
 - **세미콜론**: 항상 사용
 - **Trailing comma**: ES5 스타일
+
+## Linter (ESLint)
+
+- **도구**: ESLint + eslint-plugin-astro + typescript-eslint
+- **설정**: eslint.config.js (Flat Config)
+- **주요 규칙**: TypeScript 추천 규칙 + Astro 추천 규칙
 
 ## Important Notes
 

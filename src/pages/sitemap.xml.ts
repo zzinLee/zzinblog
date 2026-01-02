@@ -1,7 +1,5 @@
-import { getCollection } from "astro:content";
-
 export async function GET() {
-  const siteUrl = import.meta.env.SITE_URL;
+  const siteUrl = import.meta.env.SITE;
   const result = `
   <?xml version="1.0" encoding="UTF-8"?>
   <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">

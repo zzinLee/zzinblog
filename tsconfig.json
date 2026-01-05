@@ -4,12 +4,19 @@
   "exclude": ["dist"],
   "compilerOptions": {
     "strictNullChecks": true,
+    "noImplicitAny": true,
+    "verbatimModuleSyntax": true,
     "types": ["astro/types"],
     "jsx": "react-jsx",
     "jsxImportSource": "react",
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"]
-    }
+    },
+    "plugins": [
+      {
+        "name": "@astrojs/tsplugin"
+      }
+    ]
   }
 }

@@ -1,5 +1,6 @@
 ---
 import "../styles/global.css";
+import FontHead from "@/components/FontHead.astro";
 
 interface Props {
   title: string;
@@ -15,6 +16,7 @@ const { title, description, image, canonicalURL }: Props = Astro.props;
 <!doctype html>
 <html lang="ko">
   <head>
+    <FontHead />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />

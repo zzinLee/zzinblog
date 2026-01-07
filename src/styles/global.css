@@ -1,7 +1,8 @@
 @import "tailwindcss";
 
-@theme inline {
+@theme {
   --font-sans: var(--font-roboto), var(--font-noto-sans-kr), ui-sans-serif, system-ui, sans-serif;
+  --base-color: #464545;
 }
 
 html,

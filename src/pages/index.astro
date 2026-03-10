@@ -1,6 +1,14 @@
 ---
-import "../styles/global.css";
-import Layout from "../layouts/Layout.astro";
+import { getCollection } from "astro:content";
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
+import PostCard from "@/components/PostCard.astro";
+
+const recentPosts = (await getCollection("posts"))
+  .filter((post) => !post.data.draft)
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
+  .slice(0, 5);
 ---
 
 <Layout
@@ -8,5 +16,34 @@ import Layout from "../layouts/Layout.astro";
   description="posted by zzinlee"
   image="/og-image.png"
   canonicalURL="https://zzinlee.dev"
-  type="website"
-/>
+>
+  <Header />
+  <main class="mx-auto max-w-2xl flex-1 px-6 py-12">
+    <section>
+      <h1 class="text-2xl font-bold text-gray-900">Latest Posts</h1>
+      <div class="mt-6 divide-y divide-gray-100">
+        {recentPosts.length > 0 ? (
+          recentPosts.map((post) => (
+            <PostCard
+              title={post.data.title}
+              description={post.data.description}
+              date={post.data.date}
+              slug={post.id}
+              tags={post.data.tags}
+            />
+          ))
+        ) : (
+          <p class="py-12 text-center text-gray-400">아직 작성된 글이 없습니다.</p>
+        )}
+      </div>
+      {recentPosts.length > 0 && (
+        <div class="mt-8 text-center">
+          <a href="/posts" class="text-sm text-gray-500 hover:text-gray-900 transition-colors">
+            모든 글 보기 &rarr;
+          </a>
+        </div>
+      )}
+    </section>
+  </main>
+  <Footer />
+</Layout>

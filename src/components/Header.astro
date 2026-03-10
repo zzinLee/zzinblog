@@ -1,0 +1,25 @@
+---
+const navItems = [
+  { label: "Posts", href: "/posts" },
+];
+---
+
+<header class="border-b border-gray-200">
+  <nav class="mx-auto flex max-w-2xl items-center justify-between px-6 py-4">
+    <a href="/" class="text-lg font-bold text-gray-900 hover:text-gray-600 transition-colors">
+      zzinblog
+    </a>
+    <ul class="flex gap-6">
+      {navItems.map((item) => (
+        <li>
+          <a
+            href={item.href}
+            class="text-sm text-gray-600 hover:text-gray-900 transition-colors"
+          >
+            {item.label}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </nav>
+</header>

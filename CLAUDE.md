@@ -33,18 +33,67 @@ pnpm fix          # ESLint + Prettier 수정
 
 ```
 src/
-├── layouts/      # Astro 레이아웃 컴포넌트
-├── pages/        # 페이지 (파일 기반 라우팅)
-└── styles/       # 전역 CSS
-public/           # 정적 파일 (favicon, og-image, robots.txt)
+├── components/       # 재사용 Astro/React 컴포넌트
+│   ├── Header.astro  # 공통 헤더/네비게이션
+│   ├── Footer.astro  # 공통 푸터
+│   ├── PostCard.astro # 글 목록 카드
+│   └── FontHead.astro # 폰트 로딩
+├── content/
+│   └── posts/        # .md 블로그 글 저장소
+├── content.config.ts # Content Collection 스키마 정의
+├── layouts/
+│   ├── Layout.astro      # 베이스 레이아웃 (SEO 메타 포함)
+│   └── PostLayout.astro  # 글 상세 레이아웃
+├── pages/
+│   ├── index.astro       # 메인 (최신 5개 글)
+│   ├── 404.astro
+│   ├── posts/
+│   │   ├── index.astro       # 전체 글 목록
+│   │   └── [...slug].astro   # 글 상세 (동적 라우팅)
+│   └── sitemap.xml.ts
+└── styles/
+    └── global.css    # 전역 CSS + Markdown prose 스타일
+public/               # 정적 파일 (favicon, og-image, robots.txt)
+```
+
+## Blog Content Pattern
+
+- **Content Collections**: Astro Content Collections (`astro:content`) 사용
+- **글 저장 위치**: `src/content/posts/*.md`
+- **글 스키마**: `content.config.ts`에 Zod 스키마 정의
+  - `title` (string, 필수)
+  - `description` (string, 필수)
+  - `date` (Date, 필수)
+  - `tags` (string[], 선택)
+  - `draft` (boolean, 기본값 false) — draft: true인 글은 목록/빌드에서 제외
+- **라우팅**: `pages/posts/[...slug].astro`에서 `getStaticPaths()`로 정적 생성
+- **Markdown 스타일**: `global.css`의 `.prose` 클래스로 관리
+
+### 새 글 작성법
+
+`src/content/posts/`에 `.md` 파일 생성 후 frontmatter 작성:
+
+```md
+---
+title: "글 제목"
+description: "글 설명"
+date: 2026-03-10
+tags: ["tag1", "tag2"]
+draft: false
+---
+
+본문 내용...
 ```
 
 ## Code Conventions
 
 - **Path Alias**: `@/*` → `./src/*`
 - **Astro 컴포넌트**: `.astro` 확장자, frontmatter에서 TypeScript 로직
+- **React 컴포넌트**: 인터랙티브한 UI에만 사용 (Island Architecture)
 - **Props 타입**: TypeScript interface로 정의
 - **JSX**: React JSX 문법 사용
+- **레이아웃 패턴**: `Layout.astro`(베이스) → `PostLayout.astro`(글 전용) 계층 구조
+- **공통 UI**: Header/Footer는 각 페이지/레이아웃에서 직접 import
 
 ## Formatter (Prettier)
 
